@@ -1,76 +1,67 @@
 const express = require('express');
 const mysql = require('mysql');
-const bodyParser = require('body-parser');
 const cors = require('cors');
 
 const app = express();
-const port = 5000;
-
-// Middleware
-app.use(bodyParser.json());
 app.use(cors());
+app.use(express.json());
 
-// Create MySQL connection
-const db = mysql.createConnection({
-    host: 'localhost',
+const connection = mysql.createConnection({
+    host: '127.0.0.1', // Use 127.0.0.1 instead of localhost
     user: 'root',
-    password: 'Nandu@9', // Your MySQL password
-    database: 'my_app'
+    password: 'Nandu@9',
+    database: 'my_app' // Replace 'my_app' with the actual database name
 });
 
-// Connect to MySQL
-db.connect((err) => {
+connection.connect((err) => {
     if (err) {
-        throw err;
+        console.error('Error connecting to the database:', err);
+        return;
     }
-    console.log('MySQL connected...');
+    console.log('Connected to the database');
 });
 
 // Signup route
-app.post('/signup', (req, res) => {
-    const user = { ...req.body, role: 'User' }; // Default role is 'User'
-    const sql = 'INSERT INTO users SET ?';
-    db.query(sql, user, (err, result) => {
+app.post('/api/signup', (req, res) => {
+    const { username, email, password, confirmPassword } = req.body;
+    console.log('Received signup request:', username, email); // Log the received data
+
+    // Validate that password and confirmPassword match
+    if (password !== confirmPassword) {
+        res.status(400).json({ message: 'Passwords do not match' });
+        return;
+    }
+
+    const query = 'INSERT INTO users (username, email, password) VALUES (?, ?, ?)';
+    connection.query(query, [username, email, password], (err, results) => {
         if (err) {
-            console.error('Error inserting user:', err);
-            res.status(500).send('Signup failed. Please try again.');
-        } else {
-            console.log('User added:', result);
-            res.send('User added...');
+            console.error('Error executing query:', err);
+            res.status(500).send('Server error');
+            return;
         }
+        res.json({ message: 'Signup successful' });
     });
 });
 
 // Login route
-app.post('/login', (req, res) => {
-    const { email, password } = req.body;
-    const sql = 'SELECT * FROM users WHERE email = ? AND password = ?';
-    db.query(sql, [email, password], (err, results) => {
+app.post('/api/login', (req, res) => {
+    const { username, password } = req.body;
+    console.log('Received login request:', username); // Log the received data
+    const query = 'SELECT * FROM users WHERE username = ? AND password = ?';
+    connection.query(query, [username, password], (err, results) => {
         if (err) {
-            console.error('Error fetching user:', err);
-            res.status(500).send('Login failed. Please try again.');
-        } else if (results.length > 0) {
-            const user = results[0];
-            res.send({ message: 'Login successful', role: user.role });
+            console.error('Error executing query:', err);
+            res.status(500).send('Server error');
+            return;
+        }
+        if (results.length > 0) {
+            res.json({ message: 'Login successful', role: results[0].role });
         } else {
-            res.status(401).send('Invalid credentials');
+            res.status(401).json({ message: 'Invalid credentials' });
         }
     });
 });
 
-// Start the server
-app.listen(port, () => {
-    console.log(`Server started on port ${port}`);
-});
-// Fetch all users route
-app.get('/users', (req, res) => {
-    const sql = 'SELECT name, email, role FROM users';
-    db.query(sql, (err, results) => {
-        if (err) {
-            console.error('Error fetching users:', err);
-            res.status(500).send('Failed to fetch users. Please try again.');
-        } else {
-            res.send(results);
-        }
-    });
+app.listen(5000, () => {
+    console.log('Server is running on port 5000');
 });

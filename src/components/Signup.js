@@ -1,61 +1,134 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { signup } from '../api';
+import axios from 'axios';
 import '../styles.css';
 
 function Signup() {
-    const [name, setName] = useState('');
+    const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
     const navigate = useNavigate();
 
     const handleSignup = async (e) => {
         e.preventDefault();
+
+        // Basic validation
+        if (!username.trim() || !email.trim() || !password.trim() || !confirmPassword.trim()) {
+            alert('All fields are required.');
+            return;
+        }
+
+        if (password !== confirmPassword) {
+            alert('Passwords do not match.');
+            return;
+        }
+
         try {
-            const response = await signup({ name, email, password });
+            const response = await axios.post('http://localhost:5000/api/signup', {
+                username,
+                email,
+                password
+            });
             console.log(response.data);
-            if (response.data) {
-                navigate('/dashboard');
+
+            if (response.data.message === 'Signup successful') {
+                alert('Signup successful! Please log in.');
+                navigate('/login');
+            } else {
+                alert('Signup failed. Please try again.');
             }
         } catch (error) {
             console.error('Signup failed:', error);
-            alert('Signup failed. Please try again.');
+            alert('Signup failed. Please try again later.');
         }
     };
 
     return (
         <div className="container">
-            <h2>Signup</h2>
+            <img 
+               src="/2.png" 
+               alt="Logo" 
+               style={{ width: '150px', height: '150px' }} 
+            />
+                
+            <h2
+                style={{
+                    color: '#4f4f4f', // Slightly softer dark gray
+                    fontSize: '1.5rem', // Increased font size for better visibility
+                    fontWeight: '600', // Making it bolder
+                    textAlign: 'center',
+                    margin: '20px 0',
+                }}
+            >
+                SIGN UP
+            </h2>
+
             <form onSubmit={handleSignup}>
                 <div className="form-group">
-                    <label>Name</label>
-                    <input
-                        type="text"
-                        placeholder="Name"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                    />
+                    <div className="input-container">
+                        <i className="fa fa-user icon"></i>
+                        <input
+                            id="username"
+                            type="text"
+                            placeholder="Username"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            required
+                        />
+                    </div>
                 </div>
+
                 <div className="form-group">
-                    <label>Email</label>
-                    <input
-                        type="email"
-                        placeholder="Email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                    />
+                    <div className="input-container">
+                        <i className="fa fa-envelope icon"></i>
+                        <input
+                            id="email"
+                            type="email"
+                            placeholder="Email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                        />
+                    </div>
                 </div>
+
                 <div className="form-group">
-                    <label>Password</label>
-                    <input
-                        type="password"
-                        placeholder="Password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
+                    <div className="input-container">
+                        <i className="fa fa-lock icon"></i>
+                        <input
+                            id="password"
+                            type="password"
+                            placeholder="Password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
+                    </div>
                 </div>
-                <button type="submit">Signup</button>
+
+                <div className="form-group">
+                    <div className="input-container">
+                        <i className="fa fa-lock icon"></i>
+                        <input
+                            id="confirmPassword"
+                            type="password"
+                            placeholder="Confirm Password"
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                            required
+                        />
+                    </div>
+                </div>
+
+                <button type="submit" className="full-width-rounded-button">
+                    SIGN UP
+                </button>
             </form>
+
+            <div className="additional-options">
+                <button className="full-width-white-button" onClick={() => navigate('/login')}>Already have an account? Log in</button>
+            </div>
         </div>
     );
 }

@@ -6,106 +6,58 @@ import '../styles.css';
 function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [rememberMe, setRememberMe] = useState(false);
+    const [error, setError] = useState('');
     const navigate = useNavigate();
 
     const handleLogin = async (e) => {
         e.preventDefault();
-    
-        // Basic validation
-        if (!username.trim() || !password.trim()) {
-            alert('Username and password are required.');
-            return;
-        }
-    
         try {
-            const response = await login({ username, password });
-            console.log(response); // Add this to check the API response
-            if (response && response.data && response.data.message === 'Login successful') {
-                const role = response.data.role;
-                navigate(role === 'Admin' ? '/admin-dashboard' : '/dashboard');
-                console.log('Role:', role);  // Check the role being returned from the API
-
-
+            const response = await login({ email, password });
+            console.log(response.data);
+            if (response.data.message === 'Login successful') {
+                const user = { name: response.data.name, email: response.data.email, role: response.data.role };
+                localStorage.setItem('user', JSON.stringify(user));
+                if (user.role === 'Admin') {
+                    navigate('/admin-dashboard');
+                } else {
+                    navigate('/dashboard');
+                }
             } else {
-                alert('Invalid credentials');
+                setError('Invalid credentials. Please try again.');
             }
         } catch (error) {
             console.error('Login failed:', error);
-            alert('Login failed. Please try again later.');
+            alert('Login failed. Please try again.');
         }
     };
     
     return (
         <div className="container">
-            <img 
-               src="/2.png" 
-               alt="Logo" 
-               style={{ width: '150px', height: '150px' }} 
-            />
-                
-            <h2
-                style={{
-                    color: '#4f4f4f', // Slightly softer dark gray
-                    fontSize: '1.5rem', // Increased font size for better visibility
-                    fontWeight: '600', // Making it bolder
-                    textAlign: 'center',
-                    margin: '20px 0',
-                }}
-            >
-                MEMBER LOGIN
-            </h2>
-
+            <h2>Login</h2>
             <form onSubmit={handleLogin}>
+                {error && <div className="error-message">{error}</div>}
                 <div className="form-group">
-                    <div className="input-container">
-                        <i className="fa fa-user icon"></i>
-                        <input
-                            id="username"
-                            type="text"
-                            placeholder="Username"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                            required
-                        />
-                    </div>
+                    <label>Email</label>
+                    <input
+                        type="email"
+                        placeholder="Email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
                 </div>
 
                 <div className="form-group">
-                    <div className="input-container">
-                        <i className="fa fa-lock icon"></i>
-                        <input
-                            id="password"
-                            type="password"
-                            placeholder="Password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            required
-                        />
-                    </div>
+                    <label>Password</label>
+                    <input
+                        type="password"
+                        placeholder="Password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
                 </div>
-
-                <div className="form-group remember-forgot-container">
-                    <label className="remember-me">
-                        <input type="checkbox" className="large-checkbox" />
-                        Remember Me
-                    </label>
-                    <button
-                        type="button"
-                        className="forgot-password-button"
-                        onClick={() => navigate('/forgot-password')}
-                    >
-                        Forgot Password?
-                    </button>
-                </div>
-
-                <button type="submit" className="full-width-rounded-button">
-                    LOGIN
-                </button>
+                <button type="submit">Login</button>
             </form>
-
-            <div className="additional-options">
-                {/* Any additional options, like signup or social login buttons */}
-            </div>
         </div>
     );
 }

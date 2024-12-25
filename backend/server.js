@@ -21,26 +21,20 @@ connection.connect((err) => {
     console.log('Connected to the database');
 });
 
-app.post('/api/login', (req, res) => {
-    const { username, password } = req.body;
-    console.log('Received login request:', username, password); // Add this line to log the received data
-    const query = 'SELECT * FROM users WHERE username = ? AND password = ?';
-    connection.query(query, [username, password], (err, results) => {
+app.post('/api/signup', (req, res) => {
+    const { username, email, password } = req.body;
+    console.log('Received signup request:', username, email); // Log the received data
+    const query = 'INSERT INTO users (username, email, password) VALUES (?, ?, ?)';
+    connection.query(query, [username, email, password], (err, results) => {
         if (err) {
             console.error('Error executing query:', err);
             res.status(500).send('Server error');
             return;
         }
-        console.log('Query results:', results); // Add this line to log the query results
-        if (results.length > 0) {
-            res.json({ message: 'Login successful', role: results[0].role });
-        } else {
-            res.json({ message: 'Invalid credentials' });
-        }
+        res.json({ message: 'Signup successful' });
     });
 });
 
 app.listen(5000, () => {
     console.log('Server is running on port 5000');
 });
-    

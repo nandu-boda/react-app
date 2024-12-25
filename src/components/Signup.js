@@ -1,35 +1,46 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { login } from '../api'; // Ensure this API function works correctly
+import axios from 'axios';
 import '../styles.css';
 
-function Login() {
+function Signup() {
     const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
     const navigate = useNavigate();
 
-    const handleLogin = async (e) => {
+    const handleSignup = async (e) => {
         e.preventDefault();
 
         // Basic validation
-        if (!username.trim() || !password.trim()) {
-            alert('Username and password are required.');
+        if (!username.trim() || !email.trim() || !password.trim() || !confirmPassword.trim()) {
+            alert('All fields are required.');
+            return;
+        }
+
+        if (password !== confirmPassword) {
+            alert('Passwords do not match.');
             return;
         }
 
         try {
-            const response = await login({ username, password });
+            const response = await axios.post('http://localhost:5000/api/signup', {
+                username,
+                email,
+                password
+            });
             console.log(response.data);
 
-            if (response.data.message === 'Login successful') {
-                const role = response.data.role;
-                navigate(role === 'Admin' ? '/admin-dashboard' : '/dashboard');
+            if (response.data.message === 'Signup successful') {
+                alert('Signup successful! Please log in.');
+                navigate('/login');
             } else {
-                alert('Invalid credentials');
+                alert('Signup failed. Please try again.');
             }
         } catch (error) {
-            console.error('Login failed:', error);
-            alert('Login failed. Please try again later.');
+            console.error('Signup failed:', error);
+            alert('Signup failed. Please try again later.');
         }
     };
 
@@ -50,10 +61,10 @@ function Login() {
                     margin: '20px 0',
                 }}
             >
-                MEMBER LOGIN
+                SIGN UP
             </h2>
 
-            <form onSubmit={handleLogin}>
+            <form onSubmit={handleSignup}>
                 <div className="form-group">
                     <div className="input-container">
                         <i className="fa fa-user icon"></i>
@@ -63,6 +74,20 @@ function Login() {
                             placeholder="Username"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
+                            required
+                        />
+                    </div>
+                </div>
+
+                <div className="form-group">
+                    <div className="input-container">
+                        <i className="fa fa-envelope icon"></i>
+                        <input
+                            id="email"
+                            type="email"
+                            placeholder="Email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                             required
                         />
                     </div>
@@ -82,30 +107,30 @@ function Login() {
                     </div>
                 </div>
 
-                <div className="form-group remember-forgot-container">
-                    <label className="remember-me">
-                        <input type="checkbox" className="large-checkbox" />
-                        Remember Me
-                    </label>
-                    <button
-                        type="button"
-                        className="forgot-password-button"
-                        onClick={() => navigate('/forgot-password')}
-                    >
-                        Forgot Password?
-                    </button>
+                <div className="form-group">
+                    <div className="input-container">
+                        <i className="fa fa-lock icon"></i>
+                        <input
+                            id="confirmPassword"
+                            type="password"
+                            placeholder="Confirm Password"
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                            required
+                        />
+                    </div>
                 </div>
 
                 <button type="submit" className="full-width-rounded-button">
-                    LOGIN
+                    SIGN UP
                 </button>
             </form>
 
             <div className="additional-options">
-                {/* Any additional options, like signup or social login buttons */}
+                <button className="full-width-white-button" onClick={() => navigate('/login')}>Already have an account? Log in</button>
             </div>
         </div>
     );
 }
 
-export default Login;
+export default Signup;

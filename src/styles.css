@@ -1,55 +1,171 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
-}
-
+/* Container styles */
 .container {
-    max-width: 1200px;
+    max-width: 400px;
     margin: 0 auto;
-    padding: 20px;
-}
-
-h2 {
-    color: #333;
-}
-
-form {
-    background: #fff;
-    padding: 20px;
-    border-radius: 5px;
+    padding: 50px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center; /* Center the content */
+    margin-top: 50px;
 }
 
-input, button, textarea {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+/* Logo styles */
+.logo {
+    max-width: 200px;
+  
+    margin:  20px;
+    width: 500px; /* Adjust the width as needed */
+    height: 100pxs;
 }
 
-button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    cursor: pointer;
+/* Centered heading styles */
+.centered-heading {
+    text-align: center;
+    margin-bottom: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.5rem; /* Adjust font size */
+    
+    
 }
 
-button:hover {
-    background-color: #0056b3;
-}
-
+/* Form group styles */
 .form-group {
-    display: flex;
-    flex-direction: column;
+    margin-bottom: 15px;
+    text-align: left; /* Align text to the left */
 }
 
 .form-group label {
+    display: block;
     margin-bottom: 5px;
+    font-weight: bold;
 }
 
+/* Input container styles */
+.input-container {
+    position: relative;
+}
+
+.input-container .icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: black;
+}
+
+.input-container input {
+    width: 100%;
+    padding: 10px 10px 10px 40px; /* Adjust padding to make space for the icon */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+/* Remember me and forgot password container styles */
+.remember-forgot-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    
+}
+
+.large-checkbox {
+    appearance: none;
+    width: 20px; /* Larger size */
+    height: 20px; /* Larger size */
+    border: 2px solid #157EAB;
+    border-radius: 5px; /* Adjust border radius */
+    margin-right: 5px;
+    margin-top: 2px;
+    margin-bottom: -4px;
+    cursor: pointer;
+    position: relative;
+   
+
+}
+
+.large-checkbox:checked {
+    background-color: #157EAB;
+}
+
+.large-checkbox:checked::after {
+    content: '';
+    position: absolute;
+    top: 0px;
+    left: 4px;
+    width: 6px;
+    height: 12px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+/* Full-width rounded button styles */
+.full-width-rounded-button {
+    background-color: #157EAB;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px; /* Makes the button rounded */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 15px;
+    width: 40%; /* Full width */
+}
+
+.full-width-rounded-button:hover {
+    background-color: #0056b3;
+}
+
+/* Full-width white button with blue margin styles */
+.full-width-white-button {
+    background-color: #fff;
+    color: #007bff;
+    border: 2px solid #007bff;
+    padding: 10px 20px;
+    border-radius: 50px; /* Makes the button rounded */
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    margin-top: 10px;
+    width: 100%; /* Full width */
+}
+
+.full-width-white-button:hover {
+    background-color: #007bff;
+    color: #fff;
+}
+
+/* Forgot password button styles */
+.forgot-password-button {
+    background: none;
+    color: #157EAB;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    font-style: italic;
+}
+
+.forgot-password-button:hover {
+    color: white;
+}
+
+/* Additional options styles */
+.additional-options {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+/* Dashboard styles */
 .dashboard-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -66,7 +182,7 @@ button:hover {
 
 .dashboard-main {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: 20px;
     margin-top: 20px;
 }
@@ -76,46 +192,68 @@ button:hover {
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    flex: 1;
-    min-width: 300px;
 }
 
-.dashboard-image {
+table {
     width: 100%;
-    height: auto;
-    border-radius: 5px;
-    margin-bottom: 10px;
+    border-collapse: collapse;
+    margin-top: 20px;
 }
 
-h2, h3 {
-    margin: 0;
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
 }
 
-p {
-    margin: 10px 0 0;
+th {
+    background-color: #f2f2f2;
 }
 
-ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-ul li {
-    background: #f4f4f4;
-    margin: 5px 0;
-    padding: 10px;
-    border-radius: 5px;
-}
-
-.logout-button {
-    background-color: #dc3545;
+button {
+    background-color: #007bff;
     color: #fff;
     border: none;
-    padding: 10px 20px;
+    padding: 5px 10px;
     border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-.logout-button:hover {
-    background-color: #c82333;
+button:hover {
+    background-color: #0056b3;
+}
+
+.small-logout-button {
+    background: none;
+    color: black;
+    border: 1px solid black;
+    padding: 5px 10px;
+    font-size: 12px; /* Small size */
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.small-logout-button:hover {
+    background-color: black;
+    color: white;
+}
+
+img {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+}
+
+.gallery {
+    display: flex;
+    gap: 10px;
+}
+
+.gallery img {
+    width: 150px;
+    height: 150px;
+    border-radius: 5px;
+    object-fit: cover;
 }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import '../styles.css';
 
 function AdminDashboard() {
@@ -8,20 +8,29 @@ function AdminDashboard() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const fetchUsers = async () => {
-            try {
-                const response = await axios.get('http://localhost:5000/users');
-                setUsers(response.data);
-            } catch (error) {
-                console.error('Error fetching users:', error);
-            }
-        };
-
         fetchUsers();
     }, []);
 
+    const fetchUsers = async () => {
+        try {
+            const response = await axios.get('http://localhost:5000/users');
+            setUsers(response.data);
+        } catch (error) {
+            console.error('Error fetching users:', error);
+        }
+    };
+
+    const handleRoleChange = async (id, newRole) => {
+        try {
+            await axios.put(`http://localhost:5000/users/${id}`, { role: newRole });
+            fetchUsers(); // Refresh user data
+        } catch (error) {
+            console.error('Error updating user role:', error);
+        }
+    };
+
     const handleLogout = () => {
-        localStorage.removeItem('user');
+        localStorage.removeItem('admin');
         navigate('/login');
     };
 
@@ -29,25 +38,36 @@ function AdminDashboard() {
         <div className="dashboard-container">
             <header className="dashboard-header">
                 <h2>Admin Dashboard</h2>
-                <button className="logout-button" onClick={handleLogout}>Logout</button>
+                <button className="small-logout-button" onClick={handleLogout}>Logout</button>
             </header>
             <main className="dashboard-main">
                 <section className="dashboard-section">
                     <h3>All Users</h3>
-                    <table className="users-table">
+                    <table>
                         <thead>
                             <tr>
+                                <th>Profile</th>
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Role</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {users.map((user, index) => (
-                                <tr key={index}>
+                            {users.map(user => (
+                                <tr key={user.id}>
+                                    <td><img src={`https://via.placeholder.com/50?text=${user.name.charAt(0)}`} alt={`${user.name}'s profile`} /></td>
                                     <td>{user.name}</td>
                                     <td>{user.email}</td>
                                     <td>{user.role}</td>
+                                    <td>
+                                        {user.role !== 'Admin' && (
+                                            <button onClick={() => handleRoleChange(user.id, 'Admin')}>Make Admin</button>
+                                        )}
+                                        {user.role === 'Admin' && (
+                                            <button onClick={() => handleRoleChange(user.id, 'User')}>Revoke Admin</button>
+                                        )}
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>
@@ -55,7 +75,6 @@ function AdminDashboard() {
                 </section>
                 <section className="dashboard-section">
                     <h3>Admin Profile</h3>
-                    <img src="https://via.placeholder.com/150" alt="Admin Profile" className="dashboard-image" />
                     <p>Name: Admin Name</p>
                     <p>Email: admin@example.com</p>
                 </section>
@@ -69,16 +88,15 @@ function AdminDashboard() {
                 </section>
                 <section className="dashboard-section">
                     <h3>Site Statistics</h3>
-                    <img src="https://via.placeholder.com/300x200" alt="Site Statistics" className="dashboard-image" />
                     <p>Total users: 1500</p>
                     <p>Active users: 1200</p>
                 </section>
                 <section className="dashboard-section">
                     <h3>Admin Gallery</h3>
                     <div className="gallery">
-                        <img src="https://via.placeholder.com/200" alt="Gallery Image 1" />
-                        <img src="https://via.placeholder.com/200" alt="Gallery Image 2" />
-                        <img src="https://via.placeholder.com/200" alt="Gallery Image 3" />
+                        <img src="https://via.placeholder.com/150" alt="Gallery item 1" />
+                        <img src="https://via.placeholder.com/150" alt="Gallery item 2" />
+                        <img src="https://via.placeholder.com/150" alt="Gallery item 3" />
                     </div>
                 </section>
             </main>

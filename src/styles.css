@@ -1,4 +1,4 @@
-/* Container styles */
+
 .container {
     max-width: 400px;
     margin: 0 auto;
@@ -6,33 +6,33 @@
     background-color: #f9f9f9;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-align: center; /* Center the content */
+    text-align: center; 
     margin-top: 50px;
 }
 
-/* Logo styles */
+
 .logo {
     max-width: 200px;
   
     margin:  20px;
-    width: 500px; /* Adjust the width as needed */
+    width: 500px;
     height: 100pxs;
 }
 
-/* Centered heading styles */
+
 .centered-heading {
     text-align: center;
     margin-bottom: 20px;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 1.5rem; /* Adjust font size */
+    font-size: 1.5rem; 
     
     
 }
 
-/* Form group styles */
+
 .form-group {
     margin-bottom: 15px;
-    text-align: left; /* Align text to the left */
+    text-align: left; 
 }
 
 .form-group label {
@@ -41,7 +41,7 @@
     font-weight: bold;
 }
 
-/* Input container styles */
+
 .input-container {
     position: relative;
 }
@@ -56,13 +56,13 @@
 
 .input-container input {
     width: 100%;
-    padding: 10px 10px 10px 40px; /* Adjust padding to make space for the icon */
+    padding: 10px 10px 10px 40px; 
     border: 1px solid #ddd;
     border-radius: 5px;
     box-sizing: border-box;
 }
 
-/* Remember me and forgot password container styles */
+
 .remember-forgot-container {
     display: flex;
     justify-content: space-between;
@@ -78,10 +78,10 @@
 
 .large-checkbox {
     appearance: none;
-    width: 20px; /* Larger size */
-    height: 20px; /* Larger size */
+    width: 20px; 
+    height: 20px; 
     border: 2px solid #157EAB;
-    border-radius: 5px; /* Adjust border radius */
+    border-radius: 5px; 
     margin-right: 5px;
     margin-top: 2px;
     margin-bottom: -4px;
@@ -107,34 +107,34 @@
     transform: rotate(45deg);
 }
 
-/* Full-width rounded button styles */
+
 .full-width-rounded-button {
     background-color: #157EAB;
     color: #fff;
     border: none;
     padding: 10px 20px;
-    border-radius: 5px; /* Makes the button rounded */
+    border-radius: 5px; 
     cursor: pointer;
     transition: background-color 0.3s ease;
     margin-top: 15px;
-    width: 40%; /* Full width */
+    width: 40%; 
 }
 
 .full-width-rounded-button:hover {
     background-color: #0056b3;
 }
 
-/* Full-width white button with blue margin styles */
+
 .full-width-white-button {
     background-color: #fff;
     color: #007bff;
     border: 2px solid #007bff;
     padding: 10px 20px;
-    border-radius: 50px; /* Makes the button rounded */
+    border-radius: 50px; 
     cursor: pointer;
     transition: background-color 0.3s ease, color 0.3s ease;
     margin-top: 10px;
-    width: 100%; /* Full width */
+    width: 100%; 
 }
 
 .full-width-white-button:hover {
@@ -142,7 +142,7 @@
     color: #fff;
 }
 
-/* Forgot password button styles */
+
 .forgot-password-button {
     background: none;
     color: #157EAB;
@@ -157,7 +157,7 @@
     color: white;
 }
 
-/* Additional options styles */
+
 .additional-options {
     display: flex;
     flex-direction: column;

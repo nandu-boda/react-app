@@ -8,7 +8,7 @@ function ContactUs() {
 
     const handleContactUs = async (e) => {
         e.preventDefault();
-        // Implement contact us logic here
+        
         alert('Message sent successfully');
     };
 

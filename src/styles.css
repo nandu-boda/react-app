@@ -165,7 +165,7 @@
     margin-top: 20px;
 }
 
-/* Dashboard styles */
+
 .dashboard-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -229,7 +229,7 @@ button:hover {
     color: black;
     border: 1px solid black;
     padding: 5px 10px;
-    font-size: 12px; /* Small size */
+    font-size: 12px;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease, color 0.3s ease;

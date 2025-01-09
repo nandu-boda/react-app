@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { login } from '../api'; // Ensure this API function works correctly
+import { login } from '../api'; 
 import '../styles.css';
 
 function Login() {
@@ -11,7 +11,7 @@ function Login() {
     const handleLogin = async (e) => {
         e.preventDefault();
 
-        // Basic validation
+        
         if (!username.trim() || !password.trim()) {
             alert('Username and password are required.');
             return;
@@ -43,9 +43,9 @@ function Login() {
                 
             <h2
                 style={{
-                    color: '#4f4f4f', // Slightly softer dark gray
-                    fontSize: '1.5rem', // Increased font size for better visibility
-                    fontWeight: '600', // Making it bolder
+                    color: '#4f4f4f', 
+                    fontSize: '1.5rem', 
+                    fontWeight: '600', 
                     textAlign: 'center',
                     margin: '20px 0',
                 }}

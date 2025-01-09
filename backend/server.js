@@ -21,7 +21,7 @@ connection.connect((err) => {
     console.log('Connected to the database');
 });
 
-// Signup route
+
 app.post('/api/signup', (req, res) => {
     const { username, email, password, confirmPassword } = req.body;
     console.log('Received signup request:', username, email); 
@@ -43,7 +43,7 @@ app.post('/api/signup', (req, res) => {
     });
 });
 
-// Login route
+
 app.post('/api/login', (req, res) => {
     const { username, password } = req.body;
     console.log('Received login request:', username); 

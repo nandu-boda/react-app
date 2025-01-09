@@ -23,7 +23,7 @@ function AdminDashboard() {
     const handleRoleChange = async (id, newRole) => {
         try {
             await axios.put(`http://localhost:5000/users/${id}`, { role: newRole });
-            fetchUsers(); // Refresh user data
+            fetchUsers(); 
         } catch (error) {
             console.error('Error updating user role:', error);
         }

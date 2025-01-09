@@ -13,7 +13,7 @@ function Signup() {
     const handleSignup = async (e) => {
         e.preventDefault();
 
-        // Basic validation
+       
         if (!username.trim() || !email.trim() || !password.trim() || !confirmPassword.trim()) {
             alert('All fields are required.');
             return;

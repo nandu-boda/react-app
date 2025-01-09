@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:5000/api'; // Replace with your actual API base URL
+const API_BASE_URL = 'http://localhost:5000/api'; 
 
-// Function to handle login
+
 export const login = async (credentials) => {
     try {
         const response = await axios.post(`${API_BASE_URL}/login`, credentials);
@@ -13,7 +13,7 @@ export const login = async (credentials) => {
     }
 };
 
-// Function to handle signup
+
 export const signup = async (userData) => {
     try {
         const response = await axios.post(`${API_BASE_URL}/signup`, userData);
@@ -24,7 +24,7 @@ export const signup = async (userData) => {
     }
 };
 
-// Function to fetch users (for admin dashboard)
+
 export const fetchUsers = async () => {
     try {
         const response = await axios.get(`${API_BASE_URL}/users`);
@@ -35,7 +35,6 @@ export const fetchUsers = async () => {
     }
 };
 
-// Function to update user role (for admin dashboard)
 export const updateUserRole = async (id, newRole) => {
     try {
         const response = await axios.put(`${API_BASE_URL}/users/${id}`, { role: newRole });

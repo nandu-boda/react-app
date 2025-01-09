@@ -54,9 +54,9 @@ function Signup() {
                 
             <h2
                 style={{
-                    color: '#4f4f4f', // Slightly softer dark gray
-                    fontSize: '1.5rem', // Increased font size for better visibility
-                    fontWeight: '600', // Making it bolder
+                    color: '#4f4f4f', 
+                    fontSize: '1.5rem', 
+                    fontWeight: '600', 
                     textAlign: 'center',
                     margin: '20px 0',
                 }}

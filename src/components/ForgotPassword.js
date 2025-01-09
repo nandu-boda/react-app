@@ -6,7 +6,7 @@ function ForgotPassword() {
 
     const handleForgotPassword = async (e) => {
         e.preventDefault();
-        // Implement forgot password logic here
+        
         alert('Password reset link sent to your email');
     };
 

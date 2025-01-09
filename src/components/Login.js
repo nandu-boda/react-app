@@ -102,7 +102,7 @@ function Login() {
             </form>
 
             <div className="additional-options">
-                {/* Any additional options, like signup or social login buttons */}
+                {}
             </div>
         </div>
     );

@@ -7,10 +7,10 @@ app.use(cors());
 app.use(express.json());
 
 const connection = mysql.createConnection({
-    host: '127.0.0.1', // Use 127.0.0.1 instead of localhost
+    host: '127.0.0.1',
     user: 'root',
     password: 'Nandu@9',
-    database: 'my_app' // Replace 'my_app' with the actual database name
+    database: 'my_app' 
 });
 
 connection.connect((err) => {
@@ -24,9 +24,9 @@ connection.connect((err) => {
 // Signup route
 app.post('/api/signup', (req, res) => {
     const { username, email, password, confirmPassword } = req.body;
-    console.log('Received signup request:', username, email); // Log the received data
+    console.log('Received signup request:', username, email); 
 
-    // Validate that password and confirmPassword match
+   
     if (password !== confirmPassword) {
         res.status(400).json({ message: 'Passwords do not match' });
         return;
@@ -46,7 +46,7 @@ app.post('/api/signup', (req, res) => {
 // Login route
 app.post('/api/login', (req, res) => {
     const { username, password } = req.body;
-    console.log('Received login request:', username); // Log the received data
+    console.log('Received login request:', username); 
     const query = 'SELECT * FROM users WHERE username = ? AND password = ?';
     connection.query(query, [username, password], (err, results) => {
         if (err) {
